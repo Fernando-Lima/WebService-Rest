@@ -21,24 +21,25 @@ import com.fernando.webservice.service.ItemService;
 
 @RestController
 @CrossOrigin("${origem-permitida}")
+@RequestMapping("/itens")
 public class ItemResource{
 	
 	@Autowired
 	private ItemService itemService;
 	
-	@GetMapping("/itens")
+	@GetMapping
 	public List<Item> listar(){
 		return itemService.listar();
 	}
-	@PostMapping("/itens")
+	@PostMapping
 	public Item adicionar(@RequestBody @Valid Item item) {
 		return itemService.salvar(item);
 	}
-	@DeleteMapping("/itens/{codigo}")
+	@DeleteMapping("/{codigo}")
 	public void excluir(@PathVariable Long codigo) {
 		itemService.excluir(codigo);
 	}
-	@GetMapping("/itens/{codigo}")
+	@GetMapping("{codigo}")
 	public ResponseEntity<?> buscarItem(@PathVariable("codigo") Long codigo) {
 		try {
 			return ResponseEntity.ok(itemService.buscar(codigo)) ;
